@@ -6,7 +6,7 @@ DRAGON — это плагин для пробивки информации по
 
 1. **Установите Termux**: Скачайте с [официального GitHub](https://github.com/termux/termux-app/releases).
 2. **Обновите пакеты**: выполните команду `pkg update && pkg upgrade`.
-3. **Клонируйте репозиторий**: используйте команду `git clone https://github.com/yourusername/DRAGON.git`.
+3. **Клонируйте репозиторий**: используйте команду `git clone https://github.com/dragontermux/DTool.git`.
 4. **Перейдите в директорию проекта**: выполните `cd DRAGON`.
 5. **Установите необходимые библиотеки**: выполните `pip install -r requirements.txt`.
 

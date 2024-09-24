@@ -1,7 +1,7 @@
 import phonenumbers
 from phonenumbers import geocoder, carrier, timezone
 import requests
-import webbrowser
+import os
 import socket
 import threading
 import time
@@ -112,7 +112,7 @@ def get_ip_info(ip_address):
             open_map = input(f"{red}Хотите открыть местоположение в Google Картах (Да/Нет)? {reset}").strip().lower()
             if open_map == "да":
                 google_maps_url = f"https://www.google.com/maps/search/?api=1&query={latitude},{longitude}"
-                webbrowser.open(google_maps_url)
+                os.system(f"termux-open {google_maps_url}")  # Используем termux-open
                 print(f"Открываем Google Карты: {google_maps_url}")
             else:
                 print(f"{red}Возвращаемся в меню...{reset}")
@@ -184,32 +184,29 @@ def request_sender():
 def camera_view():
     camera_id = input(f"{purple}[#]{yellow}Введите IP видеокамеры: {reset}")
     ip_address = f"http://{camera_id}"  # Формирование URL
-    webbrowser.open(ip_address)  # Открытие URL в браузере
+    os.system(f"termux-open {ip_address}")  # Открытие URL в браузере через Termux
     print(f"{red}Открываем видеокамеру: {ip_address}{reset}")
 
-def exit_program():
-    print(f"{red}Выход из программы...{reset}")
-    exit(0)
+def main():
+    contacts = load_contacts_from_csv('contacts.csv')
+    while True:
+        choice = main_menu()
+        if choice == '1':
+            phone_lookup(contacts)
+        elif choice == '2':
+            ip_lookup()
+        elif choice == '3':
+            request_sender()
+        elif choice == '4':
+            camera_view()
+        elif choice == '5':
+            username = input(f"{purple}[#]{yellow}Введите ник: {reset}")
+            lookup_by_username(username)
+        elif choice == '6':
+            print(f"{red}Выход из программы...{reset}")
+            break
+        else:
+            print(f"{red}Неверный выбор. Пожалуйста, попробуйте снова.{reset}")
 
-# Загрузка контактов
-contacts = load_contacts_from_csv('database.csv')
-
-# Основной цикл программы
-while True:
-    user_choice = main_menu()
-
-    if user_choice == "1":
-        phone_lookup(contacts)
-    elif user_choice == "2":
-        ip_lookup()
-    elif user_choice == "3":
-        request_sender()
-    elif user_choice == "4":
-        camera_view()
-    elif user_choice == "5":
-        username = input(f"{purple}[#]{yellow}Введите ник пользователя(без @): {reset}")
-        lookup_by_username(username)
-    elif user_choice == "6":
-        exit_program()
-    else:
-        print("Неверный ввод, попробуйте снова.\n")
+if __name__ == "__main__":
+    main()

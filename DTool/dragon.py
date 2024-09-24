@@ -188,7 +188,7 @@ def camera_view():
     print(f"{red}Открываем видеокамеру: {ip_address}{reset}")
 
 def main():
-    contacts = load_contacts_from_csv('contacts.csv')
+    contacts = load_contacts_from_csv('database.csv')
     while True:
         choice = main_menu()
         if choice == '1':

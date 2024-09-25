@@ -112,8 +112,8 @@ def get_ip_info(ip_address):
             open_map = input(f"{red}Хотите открыть местоположение в Google Картах (Да/Нет)? {reset}").strip().lower()
             if open_map == "да":
                 google_maps_url = f"https://www.google.com/maps/search/?api=1&query={latitude},{longitude}"
-                os.system(f"termux-open {google_maps_url}")  # Используем termux-open
                 print(f"Открываем Google Карты: {google_maps_url}")
+                os.system(f"termux-open-url {google_maps_url}")
             else:
                 print(f"{red}Возвращаемся в меню...{reset}")
             return result
@@ -129,7 +129,6 @@ def phone_lookup(contacts):
     info = get_contact_info(normalized_phone, contacts)
     print(info)
 
-    parsed_number = phonenumbers.parse(phone)
     number_info = check_number_info(phone)
     print(number_info)
 
